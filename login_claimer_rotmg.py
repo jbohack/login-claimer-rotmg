@@ -65,10 +65,11 @@ def fetchCalendar():
         calendarRequest = requests.post(calendarURL, data=payload3, headers=headers)
         print('response:\n' + calendarRequest.text)
         print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
-        time.sleep(86400)
+        time.sleep(86400 + randomCooldown)
     except Exception as e:
         print("calendar failed to load", e)
 while True:
+    randomCooldown = random.randrange(600, 1800)
     generateAccessToken()
     loadCharacterList()
     fetchCalendar()
