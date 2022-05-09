@@ -38,9 +38,23 @@ def generateAccessToken():
         print('access token:\n' + accessToken)
     except Exception as e:
         print("access token failed to generate", e)
-def fetchCalendar():
+def loadCharacterList():
     try:
         payload2 = {
+          'doLogin': 'true',
+          'accessToken': accessToken,
+          'game_net': 'Unity',
+          'play_platform': 'Unity',
+          'game_net_user_id': ''
+        }
+        characterURL = 'https://www.realmofthemadgod.com/char/list'
+        characterRequest = requests.post(characterURL, data=payload2, headers=headers)
+        print('response:\n' + characterRequest.text)
+    except Exception as e:
+        print("character list failed to load", e)
+def fetchCalendar():
+    try:
+        payload3 = {
           'accessToken': accessToken,
           'game_net': 'Unity',
           'play_platform': 'Unity',
@@ -48,12 +62,13 @@ def fetchCalendar():
         }
 
         calendarURL = 'https://www.realmofthemadgod.com/dailyLogin/fetchCalendar'
-        calendarRequest = requests.post(calendarURL, data=payload2, headers=headers)
-        print('respone:\n' + calendarRequest.text)
+        calendarRequest = requests.post(calendarURL, data=payload3, headers=headers)
+        print('response:\n' + calendarRequest.text)
     except Exception as e:
-        print("calendar failed to claim", e)
+        print("calendar failed to load", e)
 while True:
     generateAccessToken()
+    loadCharacterList()
     fetchCalendar()
     print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
     time.sleep(86400)
