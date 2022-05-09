@@ -6,13 +6,20 @@ import string
 import xml.etree.ElementTree as ET
 import pwinput
 
+version = "v1.0.2"
+
 try:
-    os.system('title RotMG Daily Login Claimer')
+    os.system('title RotMG Daily Login Claimer ' + str(version))
 except Exception as e:
     print('failed setting window title', e)
 
 username = input('username to rotmg account: ')
-password = pwinput.pwinput('password to rotmg account: ')
+
+try:
+    password = pwinput.pwinput('password to rotmg account: ')
+except Exception as e:
+    print('failed to use custom input', e)
+    password = input('password to rotmg account: ')
 
 headers = {
     'User-Agent': 'UnityPlayer/2020.3.30f1 (UnityWebRequest/1.0, libcurl/7.80.0-DEV)',
