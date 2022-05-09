@@ -1,8 +1,14 @@
 import requests
 import random
+import os
 import time
 import string
 import xml.etree.ElementTree as ET
+
+try:
+    os.system('title RotMG Daily Login Claimer')
+except Exception as e:
+    print('failed setting window title', e)
 
 username = input('username to rotmg account: ')
 password = input('password to rotmg account: ')
