@@ -64,11 +64,11 @@ def fetchCalendar():
         calendarURL = 'https://www.realmofthemadgod.com/dailyLogin/fetchCalendar'
         calendarRequest = requests.post(calendarURL, data=payload3, headers=headers)
         print('response:\n' + calendarRequest.text)
+        print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
+        time.sleep(86400)
     except Exception as e:
         print("calendar failed to load", e)
 while True:
     generateAccessToken()
     loadCharacterList()
     fetchCalendar()
-    print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
-    time.sleep(86400)
