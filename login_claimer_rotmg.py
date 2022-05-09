@@ -4,6 +4,7 @@ import os
 import time
 import string
 import xml.etree.ElementTree as ET
+import pwinput
 
 try:
     os.system('title RotMG Daily Login Claimer')
@@ -11,7 +12,7 @@ except Exception as e:
     print('failed setting window title', e)
 
 username = input('username to rotmg account: ')
-password = input('password to rotmg account: ')
+password = pwinput.pwinput('password to rotmg account: ')
 
 headers = {
     'User-Agent': 'UnityPlayer/2020.3.30f1 (UnityWebRequest/1.0, libcurl/7.80.0-DEV)',
