@@ -5,8 +5,9 @@ import time
 import string
 import xml.etree.ElementTree as ET
 import pwinput
+from datetime import datetime
 
-version = "v1.0.3"
+version = "v1.0.4"
 
 try:
     os.system('title RotMG Daily Login Claimer ' + str(version))
@@ -82,6 +83,11 @@ def fetchCalendar():
         consecutiveDays = ET.fromstring(calendarRequest.text).find(".//Consecutive").get("days")
         print('Unlocked daily logins:', unlockedDays)
         print('Consecutive daily logins:', consecutiveDays)
+        try:
+            currentTime = datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
+            print("Latest login time (UTC):", currentTime)
+        except Exception as e:
+            print("time failed to display", e)
         print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
         time.sleep(86400 + randomCooldown)
     except Exception as e:
