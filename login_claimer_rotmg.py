@@ -6,7 +6,7 @@ import string
 import xml.etree.ElementTree as ET
 import pwinput
 
-version = "v1.0.2"
+version = "v1.0.3"
 
 try:
     os.system('title RotMG Daily Login Claimer ' + str(version))
@@ -49,7 +49,7 @@ def generateAccessToken():
         verifyRequest = requests.post(verifyURL, data=payload1, headers=headers)
         global accessToken
         accessToken = ET.fromstring(verifyRequest.text).find('AccessToken').text
-        print('access token:\n' + accessToken)
+        print('access token: ' + accessToken)
     except Exception as e:
         print("access token failed to generate", e)
 def loadCharacterList():
@@ -63,7 +63,8 @@ def loadCharacterList():
         }
         characterURL = 'https://www.realmofthemadgod.com/char/list'
         characterRequest = requests.post(characterURL, data=payload2, headers=headers)
-        print('response:\n' + characterRequest.text)
+        ingameUsername = ET.fromstring(characterRequest.text).find('.//Account/Name').text
+        print(ingameUsername, 'successfully logged in')
     except Exception as e:
         print("character list failed to load", e)
 def fetchCalendar():
@@ -77,7 +78,10 @@ def fetchCalendar():
 
         calendarURL = 'https://www.realmofthemadgod.com/dailyLogin/fetchCalendar'
         calendarRequest = requests.post(calendarURL, data=payload3, headers=headers)
-        print('response:\n' + calendarRequest.text)
+        unlockedDays = ET.fromstring(calendarRequest.text).find(".//Unlockable").get("days")
+        consecutiveDays = ET.fromstring(calendarRequest.text).find(".//Consecutive").get("days")
+        print('Unlocked daily logins:', unlockedDays)
+        print('Consecutive daily logins:', consecutiveDays)
         print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
         time.sleep(86400 + randomCooldown)
     except Exception as e:
