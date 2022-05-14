@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 import pwinput
 from datetime import datetime
 
-version = "v1.0.4"
+version = "v1.0.5"
 
 try:
     os.system('title RotMG Daily Login Claimer ' + str(version))
@@ -53,6 +53,9 @@ def generateAccessToken():
         print('access token: ' + accessToken)
     except Exception as e:
         print("access token failed to generate", e)
+        print("retrying in 30 seconds...")
+        time.sleep(30)
+        generateAccessToken()
 def loadCharacterList():
     try:
         payload2 = {
@@ -68,6 +71,9 @@ def loadCharacterList():
         print(ingameUsername, 'successfully logged in')
     except Exception as e:
         print("character list failed to load", e)
+        print("retrying in 30 seconds...")
+        time.sleep(30)
+        loadCharacterList()
 def fetchCalendar():
     try:
         payload3 = {
@@ -89,11 +95,15 @@ def fetchCalendar():
         except Exception as e:
             print("time failed to display", e)
         print("\nWAITING 24 HOURS TO FETCH AGAIN\n")
-        time.sleep(86400 + randomCooldown)
+        time.sleep(86400)
     except Exception as e:
         print("calendar failed to load", e)
-while True:
-    randomCooldown = random.randrange(600, 1800)
+        print("retrying in 30 seconds...")
+        time.sleep(30)
+        fetchCalendar()
+def programRun():
     generateAccessToken()
     loadCharacterList()
     fetchCalendar()
+while True:
+    programRun()
