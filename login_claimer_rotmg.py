@@ -10,17 +10,17 @@ from datetime import datetime
 version = "v1.0.5"
 
 try:
-    os.system('title RotMG Daily Login Claimer ' + str(version))
+    os.system('title RotMG Daily Login Claimer (STEAM VERSION)' + str(version))
 except Exception as e:
     print('failed setting window title', e)
 
 username = input('username to rotmg account: ')
 
 try:
-    password = pwinput.pwinput('password to rotmg account: ')
+    password = pwinput.pwinput('steam secret to rotmg account: ')
 except Exception as e:
     print('failed to use custom input', e)
-    password = input('password to rotmg account: ')
+    password = input('steam secret to rotmg account: ')
 
 headers = {
     'User-Agent': 'UnityPlayer/2020.3.30f1 (UnityWebRequest/1.0, libcurl/7.80.0-DEV)',
@@ -39,7 +39,7 @@ def generateAccessToken():
     try:
         payload1 = {
           'guid': username,
-          'password': password,
+          'secret': password,
           'clientToken': clientToken,
           'game_net': 'Unity',
           'play_platform': 'Unity',
