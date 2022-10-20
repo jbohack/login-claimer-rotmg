@@ -1,0 +1,13 @@
+{
+    "time": "02",
+    "account_list": [
+        {
+            "username": "xyz",
+            "password": "xyz"
+        },
+        {
+            "username": "xyz",
+            "password": "xyz"
+        }
+    ]
+}
